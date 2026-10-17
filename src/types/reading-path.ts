@@ -7,26 +7,33 @@ export type ReadingTierLevel =
   | "full_lore";
 
 export type ReadingTier = {
-  id: string;
-  handle: string;
-  title: string;
-  tier: ReadingTierLevel;
+    id: string;
+    handle: string;
+    title: string;
+    tier: ReadingTierLevel;
+  
+    description?: string;
+  
+    product: ComicProduct;
+  
+    includedProducts: ComicProduct[];
+  };
 
-  description?: string;
-
-  character?: Character;
-
-  books: ComicProduct[];
-};
+  export type ReadingPathType =
+  | "character"
+  | "genre"
+  | "theme";
 
 export type ReadingPath = {
   id: string;
   handle: string;
   title: string;
 
-  character?: Character;
-
   description?: string;
+
+  pathType: ReadingPathType;
+
+  character?: Character;
 
   tiers: ReadingTier[];
 };

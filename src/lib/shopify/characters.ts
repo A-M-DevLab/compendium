@@ -9,6 +9,15 @@ type ShopifyMetaobjectField = {
   value?: string | null;
 } | null;
 
+type ShopifyImageField = {
+    reference?: {
+      image?: {
+        url: string;
+        altText?: string | null;
+      } | null;
+    } | null;
+  } | null;
+
 type ShopifyCharacterMetaobject = {
   id: string;
   handle: string;
@@ -17,6 +26,7 @@ type ShopifyCharacterMetaobject = {
   shortDescription: ShopifyMetaobjectField;
   description: ShopifyMetaobjectField;
   publisher: ShopifyMetaobjectField;
+  heroImage: ShopifyImageField;
   featured: ShopifyMetaobjectField;
 };
 
@@ -50,6 +60,13 @@ export async function getCharacters(
       node.description?.value ?? undefined,
     publisher:
       node.publisher?.value ?? undefined,
+      heroImage: node.heroImage?.reference?.image
+      ? {
+          url: node.heroImage.reference.image.url,
+          altText:
+            node.heroImage.reference.image.altText ?? null,
+        }
+      : null,
     featured:
       node.featured?.value === "true",
   }));
@@ -92,6 +109,13 @@ export async function getCharacterByHandle(
       node.description?.value ?? undefined,
     publisher:
       node.publisher?.value ?? undefined,
+    heroImage: node.heroImage?.reference?.image
+      ? {
+          url: node.heroImage.reference.image.url,
+          altText:
+            node.heroImage.reference.image.altText ?? null,
+        }
+      : null,
     featured:
       node.featured?.value === "true",
   };
