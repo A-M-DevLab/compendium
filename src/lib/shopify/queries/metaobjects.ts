@@ -24,6 +24,17 @@ export const CHARACTERS_QUERY = `#graphql
         featured: field(key: "featured") {
           value
         }
+
+        heroImage: field(key: "hero_image") {
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                altText
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -53,6 +64,17 @@ export const CHARACTER_BY_HANDLE_QUERY = `#graphql
 
       featured: field(key: "featured") {
         value
+      }
+
+      heroImage: field(key: "hero_image") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+              altText
+            }
+          }
+        }
       }
     }
   }
